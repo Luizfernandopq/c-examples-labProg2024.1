@@ -1,0 +1,26 @@
+# Arquivos de configuração do Code::Blocks
+*.cbp
+*.depend
+*.layout
+*.workspace
+
+# Arquivos temporários do Code::Blocks
+*.cbk
+*.cbt
+
+# Diretórios de build e arquivos gerados
+build/
+bin/
+obj/
+*.exe
+*.out
+*.o
+*.a
+*.lib
+*.so
+*.dylib
+*.dll
+
+# Arquivos de log e cache
+*.log
+*.tmp
