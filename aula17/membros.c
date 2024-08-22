@@ -1,9 +1,10 @@
 #include <stdio.h>
+#include <string.h>
 
 struct senha {
 	char tipo[20];
 	int numero;
-}senha;
+};
 
 int main(){
 
@@ -12,4 +13,8 @@ int main(){
 
 	printf("Senha: %s %d\n", cliente1.tipo, cliente2.numero);
 
+	struct senha cliente3;
+	strcpy(cliente3.tipo, "prioridade");
+	cliente3.numero = 12;
+	return 0;
 }
