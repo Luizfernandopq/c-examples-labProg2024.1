@@ -18,9 +18,8 @@ int main(){
 		printf( "%-22s%-15s%s\n", "Account", "Name", "Balance" );
 		while ( !feof( clients ) ) {
 			fread( &client, sizeof(Cliente), 1, clients);
-			if (client.contaNum){
-				printf( "%-5d%16s %-16s%.2f\n", client.contaNum, client.Nome, client.Sobrenome, client.saldo );
-			}
+			printf( "%-5d%16s %-16s%.2f\n", client.contaNum, client.Nome, client.Sobrenome, client.saldo );
+			
 		} /* fim do while */
 		fclose( clients );
 	}
