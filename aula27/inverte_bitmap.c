@@ -54,12 +54,32 @@ int main(){
 
 	uint8_t *row;
 
+/*
+		Ler o Arquio Bitmap
+*/
 
+	inputFile = fopen(inputFilename, "rb");
+	if (inputFile == NULL){
+		return 1;
+	}
 
+	// Cabeçalho
 
+	fread(&fileHeader, sizeof(BITMAPFILEHEADER), 1, inputFile);
 
+	if(fileHeader.bfType != 0x4D42){
+		return 1;
+	}
 
+	// Informações
 
+	fread(&infoHeader, sizeof(BITMAPINFOHEADER), 1, inputFile);
+
+	if(infoHeader.biBitCount != 24){
+		return 1;
+	}
+
+	fseek(inputFile, fileHeader.bfOffBits, SEEK_SET);
 	
 }
 
