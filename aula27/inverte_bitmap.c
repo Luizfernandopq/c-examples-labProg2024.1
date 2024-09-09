@@ -79,7 +79,63 @@ int main(){
 		return 1;
 	}
 
+/*
+		Preencher arquivo de saída
+*/
+
+	outputFile = fopen(outputFilename, "wb");
+
+	if (outputFile == NULL){
+		return 1;
+	}
+
+	fwrite(&fileHeader, sizeof(BITMAPFILEHEADER), 1, outputFile);
+	fwrite(&infoHeader, sizeof(BITMAPINFOHEADER), 1, outputFile);
+
+/*
+		Começar leitura no início da imagem
+*/
+
 	fseek(inputFile, fileHeader.bfOffBits, SEEK_SET);
+
+	// alocar memória para linha
+
+	rowSize = ((infoHeader.biWidth * 3 + 3) / 4) * 4;
+
+	row = (uint8_t *)malloc(rowSize);
+
+	if (row == NULL){
+		return 1;
+	}
+
+/*
+		Inverter imagem
+*/
+
+	for(int i=0; i<infoHeader.biHeight; i++){
+		fread(row, rowSize, 1, inputFile);
+
+		for (int j=0; j<infoHeader.biWidth / 2; j++){
+			int lpixelIndex = j*3;
+			int rpixelIndex = (infoHeader.biWidth - 1 - j) * 3;
+
+			for(int k=0; k<3; k++){
+				uint8_t temp = row[lpixelIndex + k];
+				row[lpixelIndex + k] = row[rpixelIndex + k];
+				row[rpixelIndex + k] = temp;
+			}
+		}
+
+		fwrite(row, rowSize, 1, outputFile);
+	}
+
+	// fechar arquivo
+
+	fclose(inputFile);
+	fclose(outputFile);
+
+	printf("Imagem invertida: %s\n", outputFilename);
+	return 0;
 	
 }
 
